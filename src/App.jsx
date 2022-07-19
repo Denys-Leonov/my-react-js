@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import PostItem from './components/PostItem'
+import React, { useState } from 'react'
+// import PostItem from './components/PostItem'
 import PostList from './components/PostList'
 import MyButton from './components/UI/button/MyButton'
 import MyInput from './components/UI/input/MyInput'
