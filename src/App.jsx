@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import PostItem from './components/PostItem'
 import PostList from './components/PostList'
+import MyButton from './components/UI/button/MyButton'
+import MyInput from './components/UI/input/MyInput'
 import './styles/App.css'
 
 function App() {
@@ -21,6 +23,12 @@ function App() {
   
   return (
     <div className="App">
+      <form>
+        <MyInput type="text" placeholder='Post title'/>
+        <MyInput type="text" placeholder='Post description'/>
+        <MyButton disabled>Save</MyButton>
+      </form>
+
       <PostList posts={arr} title='List of posts #1'/>
     </div>
   )
