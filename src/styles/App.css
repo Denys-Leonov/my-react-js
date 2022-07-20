@@ -16,8 +16,16 @@
 .post {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    border: 2px solid blue;
-    margin-top: 15px;
+    width: 100%;
+    padding: 5px 15px;
+    border-radius: 4px;
+    margin: 5px 0;
+    border: 2px solid rgb(2, 254, 216);
+}
+
+.myInputFrame {
+    box-sizing: border-box;
+    padding: 0px 15px 5px 15px;
+    border: 2px dashed rgb(2, 254, 94);
+    border-radius: 5px;
 }

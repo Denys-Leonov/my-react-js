@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
+import PostForm from './components/PostForm'
 // import PostItem from './components/PostItem'
 import PostList from './components/PostList'
-import MyButton from './components/UI/button/MyButton'
-import MyInput from './components/UI/input/MyInput'
 import './styles/App.css'
 
 function App() {
@@ -18,38 +17,25 @@ function App() {
     { id: 5, title: 'C#', body: 'Javascript is a programming language #5' },
     { id: 6, title: 'Java', body: 'Javascript is a programming language #6' },
   ])
-  const [post, setPost] = useState({title:'', body:''})
-  
 
-  function addNewEvent(e) {
-    e.preventDefault()
+  function createPost(newPost) {
+    setPosts([...posts, newPost])
+  }
 
-    setPosts([...posts, {id: Date.now(), ...post}])
-
-    //after click
-    setPost({title:'', body:''})
+  function removePost(post) {
+    setPosts(posts.filter((p) => p.id !== post.id))
   }
 
   return (
     <div className="App">
-      <form>
-        <MyInput
-          value={post.title}
-          onChange={(e) => setPost({...post, title: e.target.value})}
-          type="text"
-          placeholder="Post title"
-        />
-
-        <MyInput
-          value={post.body}
-          onChange={(e) => setPost({...post, body: e.target.value})}
-          type="text"
-          placeholder="Post description"
-        />
-        <MyButton onClick={addNewEvent}>Save</MyButton>
-      </form>
-
-      <PostList posts={posts} title="List of posts #1" />
+      <PostForm create={createPost} />
+      {posts.length !== 0 ? (
+        <PostList remove={removePost} posts={posts} title="List of posts #1" />
+      ) : (
+        <h1 style={{ textAlign: 'center', color: 'rgb(2, 254, 216)' }}>
+          Posts not found
+        </h1>
+      )}
     </div>
   )
 }
