@@ -13,6 +13,8 @@ const PostForm = ({create}) => {
             ...post,
             id: Date.now()
         }
+
+        //transmit new_post to the level above
         create(newPost) 
         //after click
         setPost({title:'', body:''})
