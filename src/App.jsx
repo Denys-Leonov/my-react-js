@@ -5,7 +5,9 @@ import PostForm from './components/PostForm'
 import PostList from './components/PostList'
 // import MyInput from './components/UI/input/MyInput'
 // import MySelect from './components/UI/select/MySelect'
+import MyModal from './components/ModalWindow/MyModal'
 import './styles/App.css'
+import MyButton from './components/UI/button/MyButton'
 
 function App() {
   const [posts, setPosts] = useState([
@@ -25,6 +27,8 @@ function App() {
   // const [selectedSort, setSelectedSort] = useState('')
   // const [searchQuery, setSearchQuery] = useState('')
 
+  const [visible, setVisible] = useState(false)
+
   const sortedPosts = useMemo(() => {
     if (filter.sort)
       return [...posts].sort((a, b) =>
@@ -42,7 +46,9 @@ function App() {
 
   function createPost(newPost) {
     setPosts([...posts, newPost])
+    setVisible(false)
   }
+
 
   function removePost(post) {
     setPosts(posts.filter((p) => p.id !== post.id))
@@ -50,7 +56,10 @@ function App() {
 
   return (
     <div className="App">
-      <PostForm create={createPost} />
+      <MyButton style={{margin: '15px 0 0 0'}} onClick={()=>setVisible(true)}>create</MyButton>
+      <MyModal visible={visible} setVisible={setVisible}>
+        <PostForm create={createPost}/>
+      </MyModal>
       <hr
         style={{ margin: '15px 0px', border: '1px solid rgb(2, 254, 216)' }}
       />
