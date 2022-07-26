@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import PostFilter from './components/PostFilter'
 import PostForm from './components/PostForm'
 // import PostItem from './components/PostItem'
@@ -8,6 +8,7 @@ import PostList from './components/PostList'
 import MyModal from './components/ModalWindow/MyModal'
 import './styles/App.css'
 import MyButton from './components/UI/button/MyButton'
+import { usePosts } from './components/hooks/usePosts'
 
 function App() {
   const [posts, setPosts] = useState([
@@ -29,35 +30,34 @@ function App() {
 
   const [visible, setVisible] = useState(false)
 
-  const sortedPosts = useMemo(() => {
-    if (filter.sort)
-      return [...posts].sort((a, b) =>
-        a[filter.sort].localeCompare(b[filter.sort])
-      )
-
-    return posts
-  }, [posts, filter.sort])
-
-  const sorterAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter((post) =>
-      post.title.toLowerCase().includes(filter.query.toLowerCase())
-    )
-  }, [filter.query, sortedPosts])
+ 
+  const sorterAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
+  
+  
 
   function createPost(newPost) {
     setPosts([...posts, newPost])
     setVisible(false)
   }
 
-
   function removePost(post) {
     setPosts(posts.filter((p) => p.id !== post.id))
   }
 
+  
+
+  
+  
+
   return (
     <div className="App">
-      <MyButton style={{margin: '15px 0 0 0'}} onClick={()=>setVisible(true)}>create</MyButton>
-      <MyModal visible={visible} setVisible={setVisible}>
+      <MyButton
+        style={{ margin: '15px 0 0 0' }}
+        onClick={() => setVisible(true)}
+      >
+        create
+      </MyButton>
+      <MyModal visible={visible} setVisible={setVisible} >
         <PostForm create={createPost}/>
       </MyModal>
       <hr
