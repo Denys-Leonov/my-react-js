@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import PostFilter from './components/PostFilter'
 import PostForm from './components/PostForm'
 import PostList from './components/PostList'
@@ -9,6 +9,7 @@ import usePosts from './components/hooks/usePosts'
 import PostService from './API/PostService'
 import MyLoader from './components/UI/Loader/MyLoader'
 import { useFetching } from './components/hooks/useFetching'
+import { getPageCount } from './utils/pages'
 
 function App() {
   const [posts, setPosts] = useState([])
@@ -17,12 +18,22 @@ function App() {
 
   const [visible, setVisible] = useState(false)
 
-  const [fetchPosts, isLoading, postError] = useFetching(async ()=>{
-    const posts = await PostService.getAll()
-    setPosts(posts)
+  const [totalPages, setTotalPages] = useState(0) // here could be more relevant to use 1 as initial value
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(10)
+
+  let pagesArray = []
+  useMemo(()=> {for (let i=0; i<totalPages; i++) {
+    console.log('it works from the Array')
+    pagesArray.push(i+1)
+  }}, [totalPages])
+
+  const [fetchPosts, isLoading, postError] = useFetching(async () => {
+    const response = await PostService.getAll(limit, page)
+    setPosts(response.data)
+    const totalCount = response.headers['x-total-count']
+    setTotalPages(getPageCount(totalCount, limit))
   })
-
-
 
   const sorterAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
@@ -36,7 +47,7 @@ function App() {
   }
 
   useEffect(() => {
-     fetchPosts()
+    fetchPosts()
   }, [])
 
   return (

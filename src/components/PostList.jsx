@@ -13,7 +13,7 @@ const PostList = ({ posts, title, remove }) => {
               <PostItem
                 remove={remove}
                 post={p}
-                number={index + 1}
+                number={p.id}
               />
             </CSSTransition>
           ))}
