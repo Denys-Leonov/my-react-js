@@ -31,6 +31,11 @@
     border-radius: 5px;
 }
 
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
 .post-enter {
     transform: translateX(-350px);
   }
