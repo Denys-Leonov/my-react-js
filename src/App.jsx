@@ -22,18 +22,20 @@ function App() {
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
 
-  let pagesArray = []
-  useMemo(()=> {for (let i=0; i<totalPages; i++) {
-    console.log('it works from the Array')
-    pagesArray.push(i+1)
-  }}, [totalPages])
-
   const [fetchPosts, isLoading, postError] = useFetching(async () => {
     const response = await PostService.getAll(limit, page)
     setPosts(response.data)
     const totalCount = response.headers['x-total-count']
     setTotalPages(getPageCount(totalCount, limit))
   })
+
+  let pagesArray = []
+  useMemo(() => {
+    for (let i = 0; i < totalPages; i++) {
+      console.log('it works from the Array')
+      pagesArray.push(i + 1)
+    }
+  }, [totalPages])
 
   const sorterAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
