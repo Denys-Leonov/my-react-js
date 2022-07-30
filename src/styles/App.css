@@ -50,3 +50,30 @@
     transform: translateX(-350px);
     transition: all 500ms ease-in;
   }
+
+.page__wrapper {
+  /* display: flex; */
+  box-sizing: border-box;
+  margin: 5px;
+}
+
+
+
+  .page {
+    box-sizing: border-box;
+    width: auto;
+    color: rgb(2, 254, 216);
+    border: 1px solid rgb(2, 254, 216);
+    padding: 0 5px;
+    
+  }
+
+  .page__current {
+    color:  rgb(226, 43, 43);
+    border-color: red;
+  }
+
+  .page:hover {
+    border: 3px solid blueviolet;
+    color:  blueviolet;
+  }

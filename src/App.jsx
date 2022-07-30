@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PostFilter from './components/PostFilter'
 import PostForm from './components/PostForm'
 import PostList from './components/PostList'
@@ -10,6 +10,8 @@ import PostService from './API/PostService'
 import MyLoader from './components/UI/Loader/MyLoader'
 import { useFetching } from './components/hooks/useFetching'
 import { getPageCount } from './utils/pages'
+import { usePagesArray } from './components/hooks/usePagesArray'
+import Pagination from './components/UI/pagination/Pagination'
 
 function App() {
   const [posts, setPosts] = useState([])
@@ -18,24 +20,16 @@ function App() {
 
   const [visible, setVisible] = useState(false)
 
-  const [totalPages, setTotalPages] = useState(0) // here could be more relevant to use 1 as initial value
+  const [totalPages, setTotalPages] = useState(0) 
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
 
-  const [fetchPosts, isLoading, postError] = useFetching(async () => {
+  const [fetchPosts, isLoading, postError] = useFetching(async (limit, page) => {
     const response = await PostService.getAll(limit, page)
     setPosts(response.data)
     const totalCount = response.headers['x-total-count']
     setTotalPages(getPageCount(totalCount, limit))
   })
-
-  let pagesArray = []
-  useMemo(() => {
-    for (let i = 0; i < totalPages; i++) {
-      console.log('it works from the Array')
-      pagesArray.push(i + 1)
-    }
-  }, [totalPages])
 
   const sorterAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
@@ -48,15 +42,27 @@ function App() {
     setPosts(posts.filter((p) => p.id !== post.id))
   }
 
+  
+
   useEffect(() => {
-    fetchPosts()
+    fetchPosts(limit, page)
   }, [])
+
+  function updatePages(page) {
+    setPage(page)
+    fetchPosts(limit, page)
+  }
+
 
   return (
     <div className="App">
-      <MyButton style={{ marginTop: '15px' }} onClick={() => setVisible(true)}>
-        Create post
-      </MyButton>
+      <div className='page__wrapper'>
+        <MyButton
+          onClick={() => setVisible(true)}
+        >
+          Create post
+        </MyButton>
+      </div>
 
       <MyModal visible={visible} setVisible={setVisible}>
         <PostForm create={createPost} />
@@ -67,11 +73,15 @@ function App() {
       <PostFilter filter={filter} setFilter={setFilter} />
       {postError && <h1>Error: {postError}</h1>}
       {!isLoading ? (
-        <PostList
-          remove={removePost}
-          posts={sorterAndSearchedPosts}
-          title="List of posts #1"
-        />
+        <div>
+          {' '}
+          <PostList
+            remove={removePost}
+            posts={sorterAndSearchedPosts}
+            title="List of posts #1"
+          />
+          <Pagination totalPages={totalPages} updatePages={updatePages} page={page}/>
+        </div>
       ) : (
         <div
           style={{
