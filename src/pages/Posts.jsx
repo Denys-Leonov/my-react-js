@@ -13,6 +13,7 @@ import { getPageCount } from '../utils/pages'
 import Pagination from '../components/UI/pagination/Pagination'
 
 function Posts() {
+  const [post, setPost] = useState({title:'', body:''}) // this is needed to have a possibility to clen a new post's fields
   const [posts, setPosts] = useState([])
 
   const [filter, setFilter] = useState({ sort: '', query: '' })
@@ -63,8 +64,8 @@ function Posts() {
         </MyButton>
       </div>
 
-      <MyModal visible={visible} setVisible={setVisible}>
-        <PostForm create={createPost} />
+      <MyModal visible={visible} setVisible={setVisible} setPost={setPost}>
+        <PostForm create={createPost} post={post} setPost={setPost}/>
       </MyModal>
       <hr
         style={{ margin: '15px 0px', border: '1px solid rgb(2, 254, 216)' }}
