@@ -1,100 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import PostFilter from './components/PostFilter'
-import PostForm from './components/PostForm'
-import PostList from './components/PostList'
-import MyModal from './components/ModalWindow/MyModal'
-import './styles/App.css'
-import MyButton from './components/UI/button/MyButton'
-import usePosts from './components/hooks/usePosts'
-import PostService from './API/PostService'
-import MyLoader from './components/UI/Loader/MyLoader'
-import { useFetching } from './components/hooks/useFetching'
-import { getPageCount } from './utils/pages'
-import { usePagesArray } from './components/hooks/usePagesArray'
-import Pagination from './components/UI/pagination/Pagination'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import About from './pages/About'
+import Posts from './pages/Posts'
+import ErrorPage from './pages/ErrorPage'
+import Navbar from './components/UI/Navbar/Navbar'
 
-function App() {
-  const [posts, setPosts] = useState([])
-
-  const [filter, setFilter] = useState({ sort: '', query: '' })
-
-  const [visible, setVisible] = useState(false)
-
-  const [totalPages, setTotalPages] = useState(0) 
-  const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(10)
-
-  const [fetchPosts, isLoading, postError] = useFetching(async (limit, page) => {
-    const response = await PostService.getAll(limit, page)
-    setPosts(response.data)
-    const totalCount = response.headers['x-total-count']
-    setTotalPages(getPageCount(totalCount, limit))
-  })
-
-  const sorterAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
-
-  function createPost(newPost) {
-    setPosts([...posts, newPost])
-    setVisible(false)
-  }
-
-  function removePost(post) {
-    setPosts(posts.filter((p) => p.id !== post.id))
-  }
-
-  
-
-  useEffect(() => {
-    fetchPosts(limit, page)
-  }, [])
-
-  function updatePages(page) {
-    setPage(page)
-    fetchPosts(limit, page)
-  }
-
-
+const App = () => {
   return (
-    <div className="App">
-      <div className='page__wrapper'>
-        <MyButton
-          onClick={() => setVisible(true)}
-        >
-          Create post
-        </MyButton>
-      </div>
+    <BrowserRouter>
+      <Navbar />
 
-      <MyModal visible={visible} setVisible={setVisible}>
-        <PostForm create={createPost} />
-      </MyModal>
-      <hr
-        style={{ margin: '15px 0px', border: '1px solid rgb(2, 254, 216)' }}
-      />
-      <PostFilter filter={filter} setFilter={setFilter} />
-      {postError && <h1>Error: {postError}</h1>}
-      {!isLoading ? (
-        <div>
-          {' '}
-          <PostList
-            remove={removePost}
-            posts={sorterAndSearchedPosts}
-            title="List of posts #1"
-          />
-          <Pagination totalPages={totalPages} updatePages={updatePages} page={page}/>
-        </div>
-      ) : (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginTop: '15px',
-          }}
-        >
-          <MyLoader color="rgb(30, 228, 228)" />
-        </div>
-      )}
-    </div>
+      <Routes>
+        <Route path="/posts" element={<Posts />} />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
-
 export default App
