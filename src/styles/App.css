@@ -1,50 +1,50 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing:border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .App {
-    width: 800px;
+  width: 800px;
 }
 
 .post {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 5px 15px;
-    border-radius: 4px;
-    margin: 5px 0;
-    border: 2px solid rgb(2, 254, 216);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 5px 15px;
+  border-radius: 4px;
+  margin: 5px 0;
+  border: 2px solid rgb(2, 254, 216);
 }
 
 .myInputFrame {
-    box-sizing: border-box;
-    padding: 0px 15px 5px 15px;
-    border: 2px dashed rgb(2, 254, 94);
-    border-radius: 5px;
+  box-sizing: border-box;
+  padding: 0px 15px 5px 15px;
+  border: 2px dashed rgb(2, 254, 94);
+  border-radius: 5px;
 }
 
 .buttons {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .post-enter {
-    transform: translateX(-350px);
-  }
-  .post-enter-active {
-    transform: translateX(0px);
-    transition: all 500ms ease-in;
-  }
-  .post-exit {
-    opacity: 1;
-  }
-  .post-exit-active {
-    transform: translateX(-350px);
-    transition: all 500ms ease-in;
-  }
+  transform: translateX(-350px);
+}
+.post-enter-active {
+  transform: translateX(0px);
+  transition: all 500ms ease-in;
+}
+.post-exit {
+  opacity: 1;
+}
+.post-exit-active {
+  transform: translateX(-350px);
+  transition: all 500ms ease-in;
+}
 
 .page__wrapper {
   /* display: flex; */
@@ -52,42 +52,44 @@
   margin: 5px;
 }
 
-
-
-  .page {
-    box-sizing: border-box;
-    width: auto;
-    color: rgb(2, 254, 216);
-    border: 1px solid rgb(2, 254, 216);
-    padding: 0 5px;
-    
-  }
-
-  .page__current {
-    color:  rgb(226, 43, 43);
-    border-color: red;
-  }
-
-  .page:hover {
-    border: 3px solid blueviolet;
-    color:  blueviolet;
-  }
-
-  #root {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.page {
+  box-sizing: border-box;
+  width: auto;
+  color: rgb(2, 254, 216);
+  border: 1px solid rgb(2, 254, 216);
+  padding: 0 5px;
 }
 
-  .navbar{
-    display: flex;
-    height: 50px;
-    width: 100vw;
-    background-color: rgb(141, 41, 41);
-    padding: 0 15px;
-    align-items: center;
-  }
+.page__current {
+  color: rgb(226, 43, 43);
+  border-color: red;
+}
 
-  .navbar__links{
-    margin-left: auto;
-  }
+.page:hover {
+  border: 3px solid blueviolet;
+  color: blueviolet;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  height: 50px;
+
+  width: 100vw;
+  background-color: rgb(141, 41, 41);
+  padding: 0 15px;
+  align-items: center;
+}
+
+.navbar__links {
+  margin-left: auto;
+}
+
+.post__btn {
+  display: flex;
+}

@@ -1,17 +1,23 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import MyButton from './UI/button/MyButton'
 
-const PostItem = (props) => {
+const PostItem = ({post, remove, isSingle}) => {
   return (
     <div className="post">
       <div className="post__content">
         <strong>
-          {props.post.id}. {props.post.title}
+          {post.id}. {post.title}
         </strong>
-        <div>{props.post.body}</div>
+        <div>{post.body}</div>
       </div>
       <div className="post__btn">
-        <MyButton onClick={() => props.remove(props.post)}>Remove</MyButton>
+        <MyButton onClick={() => remove(post)}>Remove</MyButton>
+        { !isSingle &&
+          <Link to={`/posts/${post.id}`}>
+            
+          <MyButton >Open</MyButton>
+        </Link>}
       </div>
     </div>
   )
