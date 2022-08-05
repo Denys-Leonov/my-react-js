@@ -93,3 +93,15 @@
 .post__btn {
   display: flex;
 }
+
+.loader-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.btn__right {
+  display: flex;
+  justify-content: end;
+}
+

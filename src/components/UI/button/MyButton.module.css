@@ -1,17 +1,21 @@
 .myBtn {
-    padding: 5px 15px;
-    box-sizing: border-box;
-    margin: 5px;
-    border-radius: 4px;
-    color: rgb(0, 196, 196);
-    font-size: 14px;
-    background: transparent;
-    border: 1px solid rgb(0, 207, 239);
-    cursor: pointer;
-    height: 30px;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  margin: 5px;
+  border-radius: 4px;
+  color: rgb(0, 196, 196);
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid rgb(0, 196, 196);
+  cursor: pointer;
+  height: 30px;
 }
 
+.myBtn__create {
+    margin-right: 0;
+  }
+
 .myBtn:hover {
-    border: 3px solid rgb(2, 254, 216);
-    color:  rgb(2, 254, 216);
+  border: 3px solid rgb(2, 254, 216);
+  color: rgb(2, 254, 216);
 }
